@@ -232,7 +232,7 @@ class _HomePageState extends State<HomePage> {
                                 }).toList(),
                                 onChanged: (val) {
                                   setState(() {
-                                    // randSource = val;
+                                    randSource = val!;
                                   });
                                 },
                               ),
@@ -462,15 +462,15 @@ class _HomePageState extends State<HomePage> {
       "mode": mode,
       "spoofIp": spoofedIp == "" ? null : spoofedIp,
       "randSource": randSource,
-      "destPort": port,
+      "destPort": port == "" ? null : int.parse(port),
       "tcpFlags": flags,
-      "dataSize": dataSize,
+      "dataSize": dataSize == "" ? null : int.parse(dataSize),
       "packetSpeed": packetSpeed,
       "timeout": int.parse(timeout),
     };
 
     Dio dio = Dio();
-    const baseUrl = "https://dos-attacker.herokuapp.com";
+    const baseUrl = "http://localhost:3000";
     try {
       await dio.post("$baseUrl/attack", data: payload);
       final snackBar = SnackBar(
